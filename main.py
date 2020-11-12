@@ -22,13 +22,12 @@ def diff_in_time(arg):
 
 def load_last_save(path):
     try:
-        f = open(path, 'r')
-        data = f.read()
-        imp_button = browser.find_element_by_link_text("Import save")
-        imp_button.click()
-        area = browser.find_element_by_id('textareaPrompt')
-        area.send_keys(data)
-        f.close()
+        with open(path, "r") as f:
+            data = f.read()
+            imp_button = browser.find_element_by_link_text("Import save")
+            imp_button.click()
+            area = browser.find_element_by_id('textareaPrompt')
+            area.send_keys(data)
         load_button = browser.find_element_by_link_text("Load")
         load_button.click()
     except Exception:
@@ -36,13 +35,13 @@ def load_last_save(path):
 
 
 def auto_save(path):
+    options_button = browser.find_element_by_id('prefsButton')
+    options_button.click()
     exp_button = browser.find_element_by_link_text("Export save")
     exp_button.click()
     data = browser.find_element_by_id('textareaPrompt').text
-    f = open(path, 'w')
-    print(data)
-    f.write(data)
-    f.close()
+    with open(path, "w") as f:
+        f.write(data)
     ok_button = browser.find_element_by_link_text("All done!")
     ok_button.click()
     print("We made save.")
@@ -55,7 +54,9 @@ def check_if_products_enable():
             product_elem = browser.find_element_by_id('product' + str(i))
             product_atr = product_elem.get_attribute("class")
             if product_atr == "product unlocked enabled":
-                product_elem.click()
+                while product_atr == "product unlocked enabled":
+                    product_elem.click()
+                    product_atr = product_elem.get_attribute("class")               
     except Exception:
         return
 
@@ -70,9 +71,18 @@ def check_if_upgrade_enable():
         return
 
 
+def catch_golden_cookie():
+    try:
+        golden_cookie_elem = browser.find_element_by_class('shimmer')
+        golden_cookie_elem.click()
+    except Exception:
+        return
+
+
+
 # Create values Selenium
 URL = "https://orteil.dashnet.org/cookieclicker/"
-PATH_TO_SAVE = "/home/l1/python/coockie_monster/SolidParrotBakery.txt"
+PATH_TO_SAVE = "/home/l1/python/SolidParrotBakery.txt"
 PATH_TO_DRIVER = "/home/l1/python/coockie_monster/chromedriver"
 
 # Open Selenium
@@ -97,10 +107,12 @@ start_time = datetime.now()
 # Loop with all automation
 while True:
     big_cookie_click()
-    check_if_products_enable()
-    check_if_upgrade_enable()
+    #catch_golden_cookie()
+    #check_if_products_enable()
+    #check_if_upgrade_enable()
     # Auto save every n minutes
     time_diff = diff_in_time(start_time)
-    if (time_diff > 0) & (time_diff % 5 == 0):
+    if (time_diff > 0) & (time_diff % 15 == 0):
+        check_if_products_enable()
         auto_save(PATH_TO_SAVE)
         start_time = datetime.now()
