@@ -35,6 +35,8 @@ def load_last_save(path):
 
 
 def auto_save(path):
+    options_button = browser.find_element_by_id('prefsButton')
+    options_button.click()
     exp_button = browser.find_element_by_link_text("Export save")
     exp_button.click()
     data = browser.find_element_by_id('textareaPrompt').text
