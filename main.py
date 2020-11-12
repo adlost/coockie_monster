@@ -105,11 +105,12 @@ start_time = datetime.now()
 # Loop with all automation
 while True:
     big_cookie_click()
-    catch_golden_cookie()
-    check_if_products_enable()
-    check_if_upgrade_enable()
+    #catch_golden_cookie()
+    #check_if_products_enable()
+    #check_if_upgrade_enable()
     # Auto save every n minutes
     time_diff = diff_in_time(start_time)
-    if (time_diff > 0) & (time_diff % 5 == 0):
+    if (time_diff > 0) & (time_diff % 15 == 0):
+        check_if_products_enable()
         auto_save(PATH_TO_SAVE)
         start_time = datetime.now()
