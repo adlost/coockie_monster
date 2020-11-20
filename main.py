@@ -35,15 +35,18 @@ def load_last_save(path):
 
 
 def auto_save(path):
-    exp_button = browser.find_element_by_link_text("Export save")
-    exp_button.click()
-    data = browser.find_element_by_id('textareaPrompt').text
-    with open(path, "w") as f:
-        f.write(data)
-    ok_button = browser.find_element_by_link_text("All done!")
-    ok_button.click()
-    print("We made save.")
-    time.sleep(5)
+    try:
+        exp_button = browser.find_element_by_link_text("Export save")
+        exp_button.click()
+        data = browser.find_element_by_id('textareaPrompt').text
+        with open(path, "w") as f:
+            f.write(data)
+        ok_button = browser.find_element_by_link_text("All done!")
+        ok_button.click()
+        print("We made save.")
+        time.sleep(5)
+    except Exception:
+        return
 
 
 def check_if_products_enable():
@@ -80,7 +83,7 @@ def catch_golden_cookie():
 
 # Create values Selenium
 URL = "https://orteil.dashnet.org/cookieclicker/"
-PATH_TO_SAVE = "/home/l1/python/SolidParrotBakery.txt"
+PATH_TO_SAVE = "/home/l1/python/coockie_monster/SolidParrotBakery.txt"
 PATH_TO_DRIVER = "/home/l1/python/coockie_monster/chromedriver"
 
 # Open Selenium
