@@ -82,8 +82,8 @@ def catch_golden_cookie():
 
 # Create values Selenium
 URL = "https://orteil.dashnet.org/cookieclicker/"
-PATH_TO_SAVE = "/home/l1/python/SolidParrotBakery.txt"
-PATH_TO_DRIVER = "/home/l1/python/coockie_monster/chromedriver"
+PATH_TO_SAVE = "~/SolidParrotBakery.txt"
+PATH_TO_DRIVER = "~/chromedriver"
 
 # Open Selenium
 browser = webdriver.Chrome(executable_path=PATH_TO_DRIVER)
