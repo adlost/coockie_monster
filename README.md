@@ -7,3 +7,6 @@ To run this project you need:
 * Also download browser driver (chromedriver)
 * Start app: <br>
 python3 main.py
+
+After start it should open browser and go to CookieClicker website, load the last save and start autoclick on cookie.<br>
+Also it able to buy buff if it start vaileble.<br>
